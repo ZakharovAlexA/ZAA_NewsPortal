@@ -1,0 +1,21 @@
+## Создать двух пользователей (с помощью метода User.objects.create_user('username')).
+
+user1 = User.objects.create_user(username='UserAA')
+user2 = User.objects.create_user(username='UserBB')
+
+## Создать два объекта модели Author, связанные с пользователями.
+
+Author.objects.create(authorUser=user1)
+Author.objects.create(authorUser=user2)
+
+## Добавить 4 категории в модель Category.
+
+Category.objects.create(name='Category_1')
+Category.objects.create(name='Category_2')
+Category.objects.create(name='Category_3')
+Category.objects.create(name='Category_4')
+
+## Добавить 2 статьи и 1 новость.
+
+author = Author.objects.get(id=1)
+Post.objects.create(author=author, categoryType='AR', title='Title of the first article', text='TEXT of the first article')
