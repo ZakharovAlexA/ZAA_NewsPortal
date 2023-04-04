@@ -8,15 +8,15 @@ class Author(models.Model):
     authorRating = models.SmallIntegerField(default=0)
 
     def update_rating(self):
-        post_rating_summ = self.post_set.aggregate(post_rating=Sum('rating'))
-        p_rating_summ = 0
-        p_rating_summ += post_rating_summ.get('post_rating')
+        post_rating_sum = self.post_set.aggregate(post_rating=Sum('rating'))
+        p_rating_sum = 0
+        p_rating_sum += post_rating_sum.get('post_rating')
 
         comment_rating_sum = self.authorUser.comment_set.aggregate(comment_rating=Sum('rating'))
         c_rating_sum = 0
         c_rating_sum += comment_rating_sum.get('comment_rating')
 
-        self.authorRating = post_rating_summ * 3 + comment_rating_sum
+        self.authorRating = 3 * p_rating_sum + c_rating_sum
         self.save()
 
 
@@ -60,7 +60,7 @@ class Comment(models.Model):
     commentPost = models.ForeignKey(Post, on_delete=models.CASCADE)
     commentUser = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
-    dateCreation = models.DateTimeField(auto_created=True)
+    dateCreation = models.DateTimeField(auto_now_add=True)
     rating = models.SmallIntegerField(default=0)
 
     def like(self):
