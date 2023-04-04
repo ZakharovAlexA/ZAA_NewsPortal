@@ -75,3 +75,16 @@ a.update_rating()
 
 ## Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта).
 
+Author.objects.order_by('-authorRating')[0].authorUser.username
+
+или
+
+from django.db.models import Max
+rating_max = Author.objects.aggregate(Max('authorRating'))['authorRating__max']
+Author.objects.get(authorRating = rating_max).authorUser.username
+
+## Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье.
+
+
+
+## Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
