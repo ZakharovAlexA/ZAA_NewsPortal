@@ -85,6 +85,12 @@ Author.objects.get(authorRating = rating_max).authorUser.username
 
 ## Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье.
 
-
+pr = Post.objects.order_by('-rating')[0]
+pr.dateCreation.strftime("%d/%m/%y"), pr.author.authorUser.username, pr.rating, pr.title, pr.preview()
 
 ## Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
+
+comm = Comment.objects.filter(commentPost=pr.id)
+for q in comm:
+    print(q.dateCreation.strftime("%d/%m/%y"), q.commentUser.username, q.rating, q.text)
+
