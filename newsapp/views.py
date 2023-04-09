@@ -4,10 +4,9 @@ from .models import Post
 
 class PostList(ListView):
     model = Post
-    ordering = 'dateCreation'
+    ordering = '-dateCreation'
     template_name = 'posts.html'
     context_object_name = 'posts'
-    queryset = Post.objects.filter(categoryType='NW')
 
 
 class PostDetail(DetailView):

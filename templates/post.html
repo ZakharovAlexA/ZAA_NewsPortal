@@ -1,9 +1,13 @@
 {% extends 'flatpages/default.html' %}
 
 {% block title %}
-Новость
+<h2> Новость </h2>>
+<hr>
 {% endblock title %}
 
 {% block content %}
-{{ post.title }}: {{ post.text }}
+<h3> {{ post.title }} </h3> дата публикации: {{ post.dateCreation|date:'d M Y' }}
+<br>
+<hr>
+{{ post.text }}
 {% endblock content %}
