@@ -1,13 +1,15 @@
 {% extends 'flatpages/default.html' %}
 
+{% load newsapp_filters %}
+
 {% block title %}
 <h2> Новость </h2>>
 <hr>
 {% endblock title %}
 
 {% block content %}
-<h3> {{ post.title }} </h3> дата публикации: {{ post.dateCreation|date:'d M Y' }}
+<h3> {{ post.title|censor }} </h3> дата публикации: {{ post.dateCreation|date:'d M Y' }}
 <br>
 <hr>
-{{ post.text }}
+{{ post.text|censor }}
 {% endblock content %}
