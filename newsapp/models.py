@@ -4,7 +4,6 @@ from django.db.models import Sum
 from django.urls import reverse
 
 
-
 class Author(models.Model):
     authorUser = models.OneToOneField(User, on_delete=models.CASCADE)
     authorRating = models.SmallIntegerField(default=0)

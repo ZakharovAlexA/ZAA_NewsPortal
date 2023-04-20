@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from .filters import PostFilter
 from .forms import PostForm
@@ -41,3 +41,25 @@ class PostCreate(CreateView):
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.categoryType = 'NW'
+        return super().form_valid(form)
+
+
+class PostUpdate(UpdateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'post_edit.html'
+
+
+class ArticlesCreate(CreateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'articles_edit.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.categoryType = 'AR'
+        return super().form_valid(form)
