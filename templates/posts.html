@@ -19,9 +19,18 @@
         </tr>
     {% for post in posts %}
         <tr>
-            <td>{{ post.title|censor }}</td>
+            <td><a href="{% url 'post' pk=post.pk %}">{{ post.title|censor }}</a> </td>
             <td>{{ post.dateCreation|date:'d M Y' }}</td>
             <td>{{ post.text|truncatewords:20|censor }}</td>
+            <td>
+                {% if post.categoryType == 'NW' %}
+                    <a href="{% url 'update_news' pk=post.pk %}">Edit</a>
+                    <a href="{% url 'delete_news' pk=post.pk %}">Delete</a>
+                {% elif post.categoryType == 'AR' %}
+                    <a href="{% url 'update_articles' pk=post.pk %}">Edit</a>
+                    <a href="{% url 'delete_articles' pk=post.pk %}">Delete</a>
+                {% endif %}
+            </td>
         </tr>
     {% endfor %}
 

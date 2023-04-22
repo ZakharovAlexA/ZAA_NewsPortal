@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from newsapp.views import PostList, PostSearch
 
 urlpatterns = [
+    path('', PostList.as_view(), name='post_list'),
+    path('search/', PostSearch.as_view(), name='search_posts'),
     path('admin/', admin.site.urls),
     path('news/', include('newsapp.urls_news')),
     path('articles/', include('newsapp.urls_articles')),

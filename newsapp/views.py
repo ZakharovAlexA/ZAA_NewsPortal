@@ -1,4 +1,5 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .filters import PostFilter
 from .forms import PostForm
@@ -54,6 +55,12 @@ class PostUpdate(UpdateView):
     template_name = 'post_edit.html'
 
 
+class PostDelete(DeleteView):
+    model = Post
+    template_name = 'post_delete.html'
+    success_url = reverse_lazy('post_list')
+
+
 class ArticlesCreate(CreateView):
     form_class = PostForm
     model = Post
@@ -63,3 +70,15 @@ class ArticlesCreate(CreateView):
         post = form.save(commit=False)
         post.categoryType = 'AR'
         return super().form_valid(form)
+
+
+class ArticlesUpdate(UpdateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'articles_edit.html'
+
+
+class ArticlesDelete(DeleteView):
+    model = Post
+    template_name = 'articles_delete.html'
+    success_url = reverse_lazy('post_list')
