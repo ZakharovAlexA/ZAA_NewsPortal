@@ -31,10 +31,10 @@
                         <a href="{% url 'delete_news' pk=post.pk %}">Удалить</a>
                     {% endif %}
                 {% elif post.categoryType == 'AR' %}
-                    {% if perms.newsapp.change_post %}
+                    {% if perms.newsapp.change_articles %}
                         <a href="{% url 'update_articles' pk=post.pk %}">Изменить</a>
                     {% endif %}
-                    {% if perms.newsapp.delete_post %}
+                    {% if perms.newsapp.delete_articles %}
                         <a href="{% url 'delete_articles' pk=post.pk %}">Удалить</a>
                     {% endif %}
                 {% endif %}
