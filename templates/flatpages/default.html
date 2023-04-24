@@ -19,8 +19,12 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Новостная страница</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/search/">Поиск</a></li>
+                        {% if perms.newsapp.create_post %}
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/news/create/">Создать новость</a></li>
+                        {% endif %}
+                        {% if perms.newsapp.create_articles %}
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/articles/create/">Создать статью</a></li>
+                        {% endif %}
                         <!-- <li class="nav-item"><a class="nav-link" href="/page_for_admin/">Страница Админа</a></li> -->
                     </ul>
                 </div>

@@ -24,11 +24,19 @@
             <td>{{ post.text|truncatewords:20|censor }}</td>
             <td>
                 {% if post.categoryType == 'NW' %}
-                    <a href="{% url 'update_news' pk=post.pk %}">Edit</a>
-                    <a href="{% url 'delete_news' pk=post.pk %}">Delete</a>
+                    {% if perms.newsapp.change_post %}
+                        <a href="{% url 'update_news' pk=post.pk %}">Изменить</a>
+                    {% endif %}
+                    {% if perms.newsapp.delete_post %}
+                        <a href="{% url 'delete_news' pk=post.pk %}">Удалить</a>
+                    {% endif %}
                 {% elif post.categoryType == 'AR' %}
-                    <a href="{% url 'update_articles' pk=post.pk %}">Edit</a>
-                    <a href="{% url 'delete_articles' pk=post.pk %}">Delete</a>
+                    {% if perms.newsapp.change_post %}
+                        <a href="{% url 'update_articles' pk=post.pk %}">Изменить</a>
+                    {% endif %}
+                    {% if perms.newsapp.delete_post %}
+                        <a href="{% url 'delete_articles' pk=post.pk %}">Удалить</a>
+                    {% endif %}
                 {% endif %}
             </td>
         </tr>
