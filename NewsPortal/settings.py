@@ -150,3 +150,16 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# Для работы со стандартной библиотекой Python SMTP:
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# Для настройки используем вывод в console:
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.test.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "zaa@test.ru"
+EMAIL_HOST_PASSWORD = "iliezvcovrxqizez"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = "zaa@test.ru"
