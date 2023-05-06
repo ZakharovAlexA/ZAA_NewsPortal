@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
-from NewsPortal.local_settings import LOCAL_SECRET_KEY
+from NewsPortal.local_settings import LOCAL_SECRET_KEY, LOCAL_EMAIL_HOST_USER, LOCAL_EMAIL_HOST_PASSWORD
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -160,8 +160,8 @@ SITE_URL = 'http://127.0.0.1:8000'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.test.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "zaa@test.ru"
-EMAIL_HOST_PASSWORD = "iliezvcovrxqizez"
+EMAIL_HOST_USER = LOCAL_EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = LOCAL_EMAIL_HOST_PASSWORD
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
