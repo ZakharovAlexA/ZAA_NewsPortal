@@ -94,3 +94,13 @@ comm = Comment.objects.filter(commentPost=pr.id)
 for q in comm:
     print(q.dateCreation.strftime("%d/%m/%y"), q.commentUser.username, q.rating, q.text)
 
+____________________________________________________________________________________________
+Запуск Redis и Celery:
+
+в терминале linux под root
+redis-server
+
+в первом терминале pycharm - python3 manage.py runserver
+во втором терминале pycharm - celery --app NewsPortal worker -l INFO
+в третьем терминале pycharm - celery -A NewsPortal beat -l INFO
+

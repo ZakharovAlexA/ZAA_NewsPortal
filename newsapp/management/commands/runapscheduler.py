@@ -41,6 +41,7 @@ def my_job():
     msg.attach_alternative(html_content, 'text/html')
     msg.send()
 
+
 @util.close_old_connections
 def delete_old_job_executions(max_age=604_800):
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
