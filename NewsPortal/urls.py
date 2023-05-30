@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.decorators.cache import cache_page
 
 from newsapp.views import PostList, PostSearch, subscriptions
 
 urlpatterns = [
-    path('', PostList.as_view(), name='post_list'),
+    path('', cache_page(60)(PostList.as_view()), name='post_list'),
     path('search/', PostSearch.as_view(), name='search_posts'),
     path('admin/', admin.site.urls),
     path('news/', include('newsapp.urls_news')),
