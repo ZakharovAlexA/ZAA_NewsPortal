@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Exists, OuterRef
@@ -9,6 +11,9 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .filters import PostFilter
 from .forms import PostForm
 from .models import Post, Category, Subscription
+
+
+logger = logging.getLogger(__name__)
 
 
 class PostList(ListView):

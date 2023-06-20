@@ -27,7 +27,7 @@ SECRET_KEY = LOCAL_SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1']
 
 
 # Application definition
@@ -183,5 +183,114 @@ CACHES = {
         # Не забываем создать папку cache_files внутри папки с manage.py!
         'TIMEOUT': 60,
         # добавляем стандартное время ожидания в минуту (по умолчанию это 5 минут — 300 секунд)
+    }
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'style': '{',
+    'formatters': {
+        'form_deb': {
+            # формат: время, уровень сообщения, сообщение
+            'format': '%(asctime)s %(levelname)s %(message)s'
+        },
+        'form_warning': {
+            # формат: время, уровень сообщения, путь к источнику события, сообщение
+            'format': '%(asctime)s %(levelname)s %(pathname)s %(message)s'
+        },
+        'form_err_crit': {
+            # формат: время, уровень сообщения, путь к источнику события, сообщение, стэк ошибки
+            'format': '%(asctime)s %(levelname)s %(pathname)s %(message)s %(exc_info)'
+        },
+        'form_file_info': {
+            # формат: время, уровень сообщения, модуль (в котором возникло сообщение)
+            'format': '%(asctime)s %(levelname)s %(module)s'
+        },
+        'form_file_security': {
+            # формат: время, уровень сообщения, модуль (в котором возникло сообщение), сообщение
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'console_debug': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'form_deb'
+        },
+        'console_warning': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'form_warning'
+        },
+        'console_err_crit': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'form_err_crit'
+        },
+        'file_info': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'form_file_info',
+            'filename': 'general.log'
+        },
+        'file_errors': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'formatter': 'form_err_crit',
+            'filename': 'errors.log'
+        },
+        'file_security': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'formatter': 'form_file_security',
+            'filename': 'security.log'
+        },
+
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'form_warning'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console_debug', 'console_warning', 'console_err_crit', 'file_info'],
+            'level': 'DEBUG',
+
+        },
+        'django.request': {
+            'handlers': ['file_errors', 'mail_admins'],
+            'level': 'ERROR',
+        },
+        'django.server': {
+            'handlers': ['file_errors', 'mail_admins'],
+            'level': 'ERROR',
+        },
+        'django.template': {
+            'handlers': ['file_errors'],
+            'level': 'ERROR',
+        },
+        'django.db.backends': {
+            'handlers': ['file_errors'],
+            'level': 'ERROR',
+        },
+        'django.security': {
+            'handlers': ['file_security'],
+            'level': 'ERROR',
+        },
     }
 }
