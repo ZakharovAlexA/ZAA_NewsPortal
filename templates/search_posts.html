@@ -3,27 +3,29 @@
 {% load newsapp_filters %}
 {% load custom_tags %}
 
+{% load i18n %}
+
 {% block title %}
-Новости
+{% trans 'Новости' %}
 {% endblock title %}
 
 {% block content %}
-<h1>Новости</h1>
-<h3> Всего новостей: {{ posts|length }} </h3>
+<h1>{% trans 'Новости' %}</h1>
+<h3>{% trans 'Всего новостей:' %}{{ posts|length }} </h3>
 <hr>
 
    <form action="" method="get">
        {{ filterset.form.as_p }}
-       <input type="submit" value="Найти" />
+       <input type="submit" value="{% trans 'Найти' %}" />
    </form>
 <hr>
 
 {% if posts %}
     <table>
         <tr>
-            <td>Заголовок</td>
-            <td>Дата публикации</td>
-            <td>Текст</td>
+            <td>{% trans 'Заголовок' %}</td>
+            <td>{% trans 'Дата публикации' %}</td>
+            <td>{% trans 'Текст' %}</td>
         </tr>
     {% for post in posts %}
         <tr>
@@ -33,17 +35,17 @@
             <td>
                 {% if post.categoryType == 'NW' %}
                     {% if perms.newsapp.change_post %}
-                        <a href="{% url 'update_news' pk=post.pk %}">Изменить</a>
+                        <a href="{% url 'update_news' pk=post.pk %}">{% trans 'Изменить' %}</a>
                     {% endif %}
                     {% if perms.newsapp.delete_post %}
-                        <a href="{% url 'delete_news' pk=post.pk %}">Удалить</a>
+                        <a href="{% url 'delete_news' pk=post.pk %}">{% trans 'Удалить' %}</a>
                     {% endif %}
                 {% elif post.categoryType == 'AR' %}
                     {% if perms.newsapp.change_articles %}
-                        <a href="{% url 'update_articles' pk=post.pk %}">Изменить</a>
+                        <a href="{% url 'update_articles' pk=post.pk %}">{% trans 'Изменить' %}</a>
                     {% endif %}
                     {% if perms.newsapp.delete_articles %}
-                        <a href="{% url 'delete_articles' pk=post.pk %}">Удалить</a>
+                        <a href="{% url 'delete_articles' pk=post.pk %}">{% trans 'Удалить' %}</a>
                     {% endif %}
                 {% endif %}
             </td>
@@ -52,7 +54,7 @@
 
     </table>
 {% else %}
-    <h2>Новостей нет!</h2>
+    <h2>{% trans 'Новостей нет!' %}</h2>
 
 {% endif %}
 

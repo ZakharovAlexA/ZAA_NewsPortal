@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'NewsPortal.urls'
@@ -119,6 +120,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LANGUAGES = [
+    ('ru', 'Русский'),
+    ('en-us', 'English')
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -185,6 +190,8 @@ CACHES = {
         # добавляем стандартное время ожидания в минуту (по умолчанию это 5 минут — 300 секунд)
     }
 }
+
+ADMINS = [('admin', 'zaa@test.ru')]
 
 LOGGING = {
     'version': 1,
@@ -268,7 +275,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console_debug', 'console_warning', 'console_err_crit', 'file_info'],
+            'handlers': ['console_warning', 'console_err_crit', 'file_info'],
             'level': 'DEBUG',
 
         },
@@ -290,7 +297,11 @@ LOGGING = {
         },
         'django.security': {
             'handlers': ['file_security'],
-            'level': 'ERROR',
+            'level': 'INFO',
         },
     }
 }
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]

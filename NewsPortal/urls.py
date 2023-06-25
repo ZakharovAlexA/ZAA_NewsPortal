@@ -27,4 +27,5 @@ urlpatterns = [
     path('articles/', include('newsapp.urls_articles')),
     path("accounts/", include("allauth.urls")),
     path('subscriptions/', subscriptions, name='subscriptions'),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]
