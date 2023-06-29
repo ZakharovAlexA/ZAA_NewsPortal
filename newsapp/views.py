@@ -1,17 +1,18 @@
 import logging
 
+import pytz
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Exists, OuterRef
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .filters import PostFilter
 from .forms import PostForm
 from .models import Post, Category, Subscription
-
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +23,14 @@ class PostList(ListView):
     template_name = 'posts.html'
     context_object_name = 'posts'
     paginate_by = 10
+    extra_context = {
+        'current_time': timezone.now(),
+        'timezones': pytz.common_timezones,
+    }
+
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/')
 
 
 class PostSearch(ListView):

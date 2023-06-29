@@ -2,6 +2,8 @@
 
 {% load i18n %}
 
+{% load tz %}
+
 <html lang="ru">
     <head>
         <meta charset="utf-8" />
@@ -11,6 +13,9 @@
         <title>{{ flatpage.title }}</title>
         {% load static %}
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <style>
+            body {background-color: {% if current_time.hour >= 19 or current_time.hour <= 7 %} darkcyan {% else %} powderblue {% endif %};}
+        </style>
     </head>
     <body>
         <!-- Responsive navbar-->
@@ -31,6 +36,18 @@
                     </select>
                     <input type="submit" value="set">
                 </form>
+                {% get_current_timezone as TIME_ZONE %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <label for="timezone">Time zone:</label>
+                    <select name="timezone">
+                        {% for tz in timezones %}
+                        <option value="{{ tz }}"{% if tz == TIME_ZONE %} selected{% endif %}>{{ tz }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Set">
+                </form>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">

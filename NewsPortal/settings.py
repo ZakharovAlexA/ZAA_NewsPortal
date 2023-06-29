@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['.localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',     # обязательно вписать его перед админом
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,6 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'newsapp.middlewares.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'NewsPortal.urls'

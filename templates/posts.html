@@ -3,6 +3,7 @@
 {% load newsapp_filters %}
 
 {% load i18n %}
+{% load tz %}
 
 {% block title %}
 {% trans 'Новости' %}
@@ -11,6 +12,8 @@
 {% block content %}
 <h1>{% trans 'Новости' %}</h1>
 <h3> {% trans 'Всего новостей:' %}{{ posts|length }} </h3>
+{{ TIME_ZONE }}
+{{ current_time|timezone:TIME_ZONE }} <!-- Отображаем время в выбранном часовом поясе  -->
 <hr>
 {% if posts %}
     <table>
